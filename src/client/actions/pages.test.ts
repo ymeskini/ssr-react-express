@@ -31,27 +31,3 @@ test('should create a success action to load Top page', () => {
 test('should create a failure action to load Top page', () => {
   expect(actions.loadTopPageFailure(new Error())).toMatchSnapshot();
 });
-
-test('should create an action to load Saga page', () => {
-  expect(actions.loadSagaPage('2')).toMatchSnapshot();
-});
-
-test('should create a success action to load Saga page', () => {
-  expect(actions.loadSagaPageSuccess()).toMatchSnapshot();
-});
-
-test('should create a failure action to load Saga page', () => {
-  expect(actions.loadSagaPageFailure(new Error())).toMatchSnapshot();
-});
-
-test('should create an action to load Apollo page', () => {
-  expect(actions.loadApolloPage()).toMatchSnapshot();
-});
-
-test('should create a success action to load Apollo page', () => {
-  expect(actions.loadApolloPageSuccess()).toMatchSnapshot();
-});
-
-test('should create a failure action to load Apollo page', () => {
-  expect(actions.loadApolloPageFailure(new Error())).toMatchSnapshot();
-});

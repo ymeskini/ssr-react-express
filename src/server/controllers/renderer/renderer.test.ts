@@ -10,7 +10,7 @@ import { get } from '.';
 
 test.skip('should return the get of renderer response', async () => {
   const req = httpMocks.createRequest({
-    url: '/apollo'
+    url: '/'
   });
   const res = httpMocks.createResponse();
   const data = (await get(req, res)) as MockResponse<Response>;

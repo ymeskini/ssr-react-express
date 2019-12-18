@@ -4,20 +4,14 @@ import { createServer } from 'http';
 import express from 'express';
 import * as bodyParser from 'body-parser';
 import compression from 'compression';
-import { generateNonceId, csp } from './csp';
-import { apollo } from './apollo';
 import { router } from './router';
 
 export function runServer() {
   const app = express();
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT || 4444;
 
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
-
-  // CSP
-  app.use(generateNonceId);
-  app.use(csp);
 
   // compression
   app.use(compression({ level: 5 }));
@@ -40,9 +34,6 @@ export function runServer() {
       })
     );
   }
-
-  // setup apollo
-  apollo(app);
 
   // register routes
   router(app);

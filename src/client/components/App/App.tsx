@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
-import { Header } from '../Header';
 import { loadAppProcess } from '../../actions/pages';
 
 export const GlobalStyle = createGlobalStyle`
@@ -38,7 +37,6 @@ export const App: React.FC = ({ children }) => {
 
   return (
     <>
-      <Header />
       <GlobalStyle />
       <Container>{children}</Container>
     </>

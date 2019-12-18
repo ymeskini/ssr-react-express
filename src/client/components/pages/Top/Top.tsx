@@ -1,12 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import Md from 'react-markdown';
 import styled from 'styled-components';
-import raw from 'raw.macro';
 import { loadTopPage } from '../../../actions/pages';
-import { Head } from '../../Head';
-
-const md = process.env.NODE_ENV !== 'test' ? raw('../../../../../README.md') : 'test-code';
 
 const Container = styled.div`
   margin: auto;
@@ -26,13 +21,10 @@ export const Top: React.FC = () => {
   dispatch(loadTopPage());
 
   return (
-    <>
-      <Head title="top-page" />
-      <section>
-        <Container>
-          <Md source={md} />
-        </Container>
-      </section>
-    </>
+    <section>
+      <Container>
+        <div>Hello World</div>
+      </Container>
+    </section>
   );
 };
