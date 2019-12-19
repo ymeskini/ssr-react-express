@@ -20,8 +20,7 @@ module.exports = (api) => {
       '@babel/plugin-syntax-dynamic-import',
       '@babel/plugin-proposal-class-properties',
       '@babel/plugin-proposal-object-rest-spread',
-      '@loadable/babel-plugin',
-      'macros'
+      '@loadable/babel-plugin'
     ]
   };
 };

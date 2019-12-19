@@ -6,6 +6,6 @@ node_trace*
 .awcache/
 .clinic
 .eslintcache
-
+public
 # .env.dev
 # .env.prod
