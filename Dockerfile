@@ -7,7 +7,7 @@ RUN yarn install
 
 # Copying source files
 COPY . .
+RUN yarn build
+EXPOSE 8080
 
-EXPOSE 3000
-
-CMD ["yarn", "start"]
+CMD ["yarn", "start:prod"]
