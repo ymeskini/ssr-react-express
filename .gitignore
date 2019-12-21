@@ -7,5 +7,5 @@ node_trace*
 .clinic
 .eslintcache
 public
-# .env.dev
-# .env.prod
+.env.dev
+.env.prod
