@@ -7,17 +7,16 @@ type Params = {
   scripts: string;
 };
 
-const escape = (str: string) => {
-  return str
+const escape = (str: string) =>
+  str
     .replace(/&/g, '&amp;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
-};
 
-export const renderFullPage = ({ meta, body, style, scripts, preloadedState, nonce }: Params) => {
-  return `<!DOCTYPE html>
+export const renderFullPage = ({ meta, body, style, scripts, preloadedState, nonce }: Params) =>
+  `<!DOCTYPE html>
     <html lang="fr">
       <head>
         <meta charSet="UTF-8" />
@@ -35,4 +34,3 @@ export const renderFullPage = ({ meta, body, style, scripts, preloadedState, non
       </body>
     </html>
   `.trim();
-};

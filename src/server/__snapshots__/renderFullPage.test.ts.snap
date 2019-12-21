@@ -12,7 +12,7 @@ exports[`should create safe html 1`] = `
       </head>
       <body>
         <body>body</body>
-        <script nonce=\\"nonce\\" id=\\"initial-data\\" type=\\"text/plain\\" data-json=\\"{&quot;arr&quot;:[&quot;foo&quot;,&quot;bar&quot;],&quot;obj&quot;:{&quot;foo&quot;:1,&quot;bar&quot;:1},&quot;str&quot;:&quot;テスト&quot;}\\"></script>
+        <script nonce=\\"nonce\\" id=\\"initial-data\\" type=\\"text/plain\\" data-json=\\"{&quot;arr&quot;:[&quot;foo&quot;,&quot;bar&quot;],&quot;obj&quot;:{&quot;foo&quot;:1,&quot;bar&quot;:1},&quot;str&quot;:&quot;string&quot;}\\"></script>
         <script>window</script>
       </body>
     </html>"

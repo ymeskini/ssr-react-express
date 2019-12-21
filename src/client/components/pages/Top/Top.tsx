@@ -21,10 +21,8 @@ export const Top: React.FC = () => {
   dispatch(loadTopPage());
 
   return (
-    <section>
-      <Container>
-        <div>Hello World</div>
-      </Container>
-    </section>
+    <Container>
+      <div>Hello World</div>
+    </Container>
   );
 };
