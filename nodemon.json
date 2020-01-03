@@ -1,6 +1,6 @@
 {
   "verbose": true,
-  "ignore": ["dist", "src/client", ".git", "node_modules/**/node_modules"],
+  "ignore": ["dist", "src/client"],
   "exec": "babel-node --extensions \".ts,.tsx\"",
   "ext": "ts,tsx,json"
 }

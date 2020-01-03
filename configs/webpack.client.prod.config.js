@@ -2,7 +2,6 @@
 
 const { resolve } = require('path');
 const webpack = require('webpack');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const config = {
   mode: 'production',
@@ -10,21 +9,13 @@ const config = {
     filename: '[name].[contenthash].bundle.js',
     chunkFilename: '[name].[contenthash].[id].bundle.js'
   },
-  plugins: [
-    new webpack.optimize.AggressiveMergingPlugin(),
-    new BundleAnalyzerPlugin({
-      analyzerMode: 'static',
-      openAnalyzer: false
-    })
-  ],
+  plugins: [new webpack.optimize.AggressiveMergingPlugin()],
   performance: {
     maxEntrypointSize: 512000,
     maxAssetSize: 512000
   },
   optimization: {
-    runtimeChunk: {
-      name: 'manifest'
-    },
+    runtimeChunk: 'single',
     minimize: true,
     splitChunks: {
       minSize: 10000,

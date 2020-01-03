@@ -1,18 +1,15 @@
 import { combineReducers } from 'redux';
-import {
-  reducer as pagesReducer,
-  initialState as pagesInitialState,
-  State as PagesState
-} from './pages';
+
+const authentication = (
+  state = {
+    isLogged: false
+  }
+) => {
+  return state;
+};
 
 export type State = {
-  pages: PagesState;
+  authentication: typeof authentication;
 };
 
-export const initialState = {
-  pages: pagesInitialState
-};
-
-export const rootReducer = combineReducers({
-  pages: pagesReducer
-});
+export const rootReducer = combineReducers({ authentication });

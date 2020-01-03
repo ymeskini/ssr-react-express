@@ -15,14 +15,6 @@ test('should return the assets', async () => {
   expect(res.text.length).not.toEqual(0);
 });
 
-test('should return the api response of get::health', async () => {
-  const app = runServer();
-  const res = await request(app).get('/api/health');
-
-  expect(res.status).toEqual(200);
-  expect(res.text.length).not.toEqual(0);
-});
-
 test('should return HTML', async () => {
   const app = runServer();
   const res = await request(app).get('/');

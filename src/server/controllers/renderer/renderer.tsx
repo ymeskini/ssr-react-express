@@ -2,32 +2,30 @@ import { resolve } from 'path';
 import { Request, Response } from 'express';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { renderToString } from 'react-dom/server';
+import { renderToNodeStream } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import { ServerStyleSheet } from 'styled-components';
 import { ChunkExtractor } from '@loadable/server';
-import { renderFullPage } from '../../renderFullPage';
 import { Router } from '../../../client/router/index';
 import { configureStore } from '../../../client/store/configureStore';
-import { setBaseUrl } from '../../../client/actions/pages';
+import { getLoadableStatsPath } from './getLoadableStatsPath';
 
-const statsFile = resolve(
-  __dirname,
-  process.env.NODE_ENV !== 'production'
-    ? '../../../../dist/client/loadable-stats.json'
-    : '../../../../client/loadable-stats.json'
-);
+const escape = (str: string) => {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+};
+
+const statsFile = resolve(__dirname, getLoadableStatsPath(process.env.NODE_ENV));
 
 export async function get(req: Request, res: Response) {
-  const baseUrl = `${req.protocol}://${req.get('Host')}`;
-  const { nonce }: { nonce: string } = res.locals;
   const { store } = configureStore();
   const sheet = new ServerStyleSheet();
   const context = {};
-
-  // for Node.js because `fetch` requires absolute URLs
-  store.dispatch(setBaseUrl(baseUrl));
 
   const App = () => (
     <Provider store={store}>
@@ -40,23 +38,36 @@ export async function get(req: Request, res: Response) {
     </Provider>
   );
 
-  try {
-    const extractor = new ChunkExtractor({ statsFile });
-    const tree = extractor.collectChunks(<App />);
+  const preloadedState = JSON.stringify(store.getState());
+  const initialState = escape(preloadedState);
 
-    const body = renderToString(tree);
-    const preloadedState = JSON.stringify(store.getState());
-    const helmetContent = Helmet.renderStatic();
-    const meta = `
+  const extractor = new ChunkExtractor({ statsFile });
+  const helmetContent = Helmet.renderStatic();
+  const meta = `
       ${helmetContent.meta.toString()}
       ${helmetContent.title.toString()}
     `.trim();
-    const style = sheet.getStyleTags();
-    const scripts = extractor.getScriptTags({ nonce });
 
-    return res.send(renderFullPage({ meta, body, style, preloadedState, scripts, nonce }));
-  } catch (e) {
-    console.error(e);
-    return res.status(500).send(e.message);
-  }
+  res.write(
+    `<!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="Description" content="introducing SPA and SSR">
+        ${meta}
+      </head>
+      <body>
+        <script id="initial-data" type="text/plain" data-json="${initialState}"></script>
+  `.trim()
+  );
+
+  const jsx = sheet.collectStyles(<App />);
+  const stream = sheet.interleaveWithNodeStream(renderToNodeStream(jsx));
+  stream.pipe(res, { end: false });
+  stream.on('end', () => {
+    res.write(`
+    ${extractor.getScriptTags()}</body></html>`);
+    res.end();
+  });
 }

@@ -1,5 +1,3 @@
-import { configureStore } from './configureStore';
-
 test('should provide history', async () => {
   // memoryHistory
   {
@@ -18,10 +16,4 @@ test('should provide history', async () => {
 
     expect(history.location).not.toHaveProperty('key');
   }
-});
-
-test('should have store and runSaga', () => {
-  const { store } = configureStore();
-
-  expect(typeof store).toEqual('object');
 });

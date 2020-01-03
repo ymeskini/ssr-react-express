@@ -1,7 +1,7 @@
-import { LoadableTopPage } from './routes';
+import { LoadableHomePage } from './routes';
 
 test('should resolve required modules', async () => {
   expect(
-    (((await LoadableTopPage.load()) as unknown) as { default: Function }).default.name
-  ).toEqual('Top');
+    (((await LoadableHomePage.load()) as unknown) as { default: Function }).default.name
+  ).toEqual('Home');
 });

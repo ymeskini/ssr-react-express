@@ -2,7 +2,6 @@
 
 import { createServer } from 'http';
 import express from 'express';
-import * as bodyParser from 'body-parser';
 import compression from 'compression';
 import { router } from './router';
 
@@ -10,8 +9,8 @@ export function runServer() {
   const app = express();
   const port = process.env.PORT || 4444;
 
-  app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(bodyParser.json());
+  app.use(express.urlencoded({ extended: true }));
+  app.use(express.json());
 
   // compression
   app.use(compression({ level: 5 }));

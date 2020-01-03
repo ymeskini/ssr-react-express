@@ -12,10 +12,7 @@ let store: any;
 
 jest.mock('./routes.ts', () => {
   return {
-    LoadableTopPage: () => <p>top</p>,
-    LoadableSagaPage: () => <p>saga</p>,
-    LoadableApolloPage: () => <p>apollo</p>,
-    LoadableNotFoundPage: () => <p>404</p>
+    LoadableHomePage: () => <p>top</p>
   };
 });
 
@@ -28,42 +25,6 @@ test('should render Top page', () => {
   const tree = render(
     <Provider store={store}>
       <MemoryRouter initialEntries={[{ pathname: '/', key: 'testKey' }]}>
-        <Router />
-      </MemoryRouter>
-    </Provider>
-  );
-
-  expect(tree.asFragment()).toMatchSnapshot();
-});
-
-test('should render Saga page', () => {
-  const tree = render(
-    <Provider store={store}>
-      <MemoryRouter initialEntries={[{ pathname: '/saga', key: 'testKey' }]}>
-        <Router />
-      </MemoryRouter>
-    </Provider>
-  );
-
-  expect(tree.asFragment()).toMatchSnapshot();
-});
-
-test('should render Apollo page', () => {
-  const tree = render(
-    <Provider store={store}>
-      <MemoryRouter initialEntries={[{ pathname: '/apollo', key: 'testKey' }]}>
-        <Router />
-      </MemoryRouter>
-    </Provider>
-  );
-
-  expect(tree.asFragment()).toMatchSnapshot();
-});
-
-test('should render 404 page', () => {
-  const tree = render(
-    <Provider store={store}>
-      <MemoryRouter initialEntries={[{ pathname: '/noPath', key: 'testKey' }]}>
         <Router />
       </MemoryRouter>
     </Provider>
